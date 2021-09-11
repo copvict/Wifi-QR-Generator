@@ -1,6 +1,6 @@
 # Wifi-QR-Generator ![](readme_assets/logo.png "QR")
 
-Create QR codes for Wi-Fi access points to connect to with ease.\
+Create QR codes for Wi-Fi access points to connect to with ease.
 
 ![](readme_assets/home.png "App")
 ## Working

@@ -7,21 +7,17 @@ Create QR codes for Wi-Fi access points to connect to with ease.
 
 Webapp built using Python-Flask to take Wi-Fi connection details to create a QR codes to share. 
 
-## Built Using
-
-* [Python](https://www.python.org/)
-
 ## Usage
 
-*Clone this repo.
+* Clone this repo.
 
-*Install requirements.
+* Install requirements.
 ```
 pip install -r requirements.txt
 ```
 ###### Use virtual environment.
 
-*Run script.
+* Run script.
 ```
 python3 <path-to-__init__.py-file>
 ```

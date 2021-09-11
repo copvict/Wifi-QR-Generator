@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'miniset2regular';
+    src: url('miniset2-webfont.woff2') format('woff2'),
+         url('miniset2-webfont.ttf')  format('truetype'),
+         url('miniset2-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}

@@ -1,0 +1,111 @@
+{% extends 'layout.html' %} {% block body %}
+<main>
+    <h1 id="title">WiFI QR Generator&nbsp<i class="snes-jp-logo"></i></h1>
+    <section class="app" id="app">
+        <div class="nes-container with-title is-rounded" style="width: 125%;">
+            <form action="{{ url_for('generate_qr') }}" method="POST">
+                <div class="nes-text nes-badge" style="width: 350px; ;">
+                    <h4><span class="is-primary">WiFi Connection Details</span></h4><br>
+                </div>
+
+                <div class="nes-field">
+                    <label for="name_field">SSID: </label>
+                    <input class="nes-input" id="ssid" type="text" name="ssid" autocomplete="off" />
+                </div>
+
+                <label>Encryption: </label>
+                <div class="nes-select" id="auth">
+                    <select name="network" id="authop">
+            <option value="nopass" selected>None</option>
+            <option value="WEP">WEP</option>
+            <option value="WPA/WPA2">WPA/WPA2</option>
+        </select>
+                </div>
+
+                <div class="nes-field" id="pass_div">
+                    <label>Password: </label>
+                    <input class="nes-input" id="pass" type="text" name="password" autocomplete="off" />
+                </div><br>
+
+                <div class="nes-field">
+                    <label>
+        <input class="nes-checkbox" type="checkbox" name="hidden" value="True"/>
+        <span>Hidden</span>
+    </label>
+                    <input type="hidden" name="hidden" value="False" />
+                </div>
+
+                <input class="nes-btn is-primary" type="submit" value="Generate">
+            </form>
+        </div>
+    </section>
+
+    {% with error = get_flashed_messages(category_filter=["form_error"]) %} {% if error %} {% autoescape off %}
+    <section>
+        <dialog class="nes-dialog is-rounded" id="dialog-rounded">
+            <form method="dialog">
+                <p class="title nes-badge" style="font-size: 1em;"><span class="is-error">ERROR</span></p><br> {% for message in error %}
+                <p>{{ message }}</p>
+                {% endfor %} {% if get_flashed_messages(category_filter=["warning"]) %}
+                <p><span class="nes-text is-warning">Warning:</span> {{ get_flashed_messages(category_filter=["warning"])[0] }}</p>
+
+
+                {% endif %} {% if get_flashed_messages(category_filter=["recommend"]) %}
+                <p><span class="nes-text is-success">Recommendation:</span> {{ get_flashed_messages(category_filter=["recommend"])[0] }}</p>
+                {% endif %} {% with scripts = get_flashed_messages(category_filter=["script"]) %} {% if scripts %} {% for script in scripts %} {{ script }} {% endfor %} {% endif %} {% endwith %}
+                <menu class="dialog-menu" style="text-align: center; padding-inline-start: 0; margin-block-end: 0em;">
+                    <button class="nes-btn is-error">Close</button>
+                </menu>
+            </form>
+        </dialog>
+    </section>
+    <script>
+        document.getElementById('dialog-rounded').showModal();
+    </script>
+    {% endautoescape %} {% endif %} {% endwith %} {% if img %}
+    <section>
+        <dialog class="nes-dialog is-rounded" id="dialog-rounded">
+            <div method="dialog">
+                <p class="title nes-badge" style="font-size: 1em;"><span class="is-success">Output</span></p><br> {% autoescape off %}
+                <div style="text-align: center;"><img src="data:image/png;base64, {{ img }}"></div>
+                {% endautoescape %}
+                <p><span class="nes-text is-primary">Share: </span>Scan or Print it out to share your WiFi connection.</p>
+
+                <menu class="dialog-menu" style="text-align: center; padding-inline-start: 0; margin-block-end: 0em;">
+                    <form action="{{ url_for('download_qr') }}" method="POST">
+                        <input type="hidden" name="qr64" value="{{ img }}" />
+                        <button class="nes-btn is-success" type="submit">Download</button>
+                    </form>
+                    <br>
+                    <a class="nes-btn is-error" style="width: 100%;" href="">Make another one</a>
+                </menu>
+            </div>
+        </dialog>
+    </section>
+    <script>
+        document.getElementById('dialog-rounded').showModal();
+        document.getElementById('app').style.display = "none";
+        document.getElementById('title').style.display = "none";
+
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode == 27) {
+                document.getElementById('app').style.display = "";
+                document.getElementById('title').style.display = "";
+            }
+        });
+    </script>
+
+    {% endif %}
+
+    <script>
+        if (document.querySelector("#authop").value == 'nopass')
+            document.querySelector("#pass_div").hidden = true
+        document.querySelector("#authop").onchange = function() {
+            if (document.querySelector("#authop").value == 'nopass')
+                document.querySelector("#pass_div").hidden = true
+            else
+                document.querySelector("#pass_div").hidden = false
+        }
+    </script>
+</main>
+{% endblock %}

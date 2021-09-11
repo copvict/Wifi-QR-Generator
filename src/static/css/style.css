@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'miniset';
+    src: url('miniset2-webfont.woff2') format('woff2'),
+         url('miniset2-webfont.ttf')  format('truetype'),
+         url('miniset2-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body, pre, code, kbd, samp {
+    font-family: "miniset";
+    font-size: 20px;
+}
+
+body{
+    font-family: 'miniset' !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+}
+
+main{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.app{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.output{
+    padding-left: 50px;
+}
+
+form input[type=text]{
+    font-family: 'miniset';
+}
+
+form input[type=checkbox]{
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    transform : scale(10);
+}
+
+form input[type=submit]{
+    font-family: 'miniset';
+}
+
+form select{
+    font-family: 'miniset';
+}
+
+form button{
+    display: block;
+    width: 100%;
+    margin-right: 5%;
+}
+
+form input[type=submit]{
+    display: block;
+    width: 100%;
+}
